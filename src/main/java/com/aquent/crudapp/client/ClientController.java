@@ -1,5 +1,6 @@
 package com.aquent.crudapp.client;
 
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,16 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @RequestMapping(value = "list")
+    @GetMapping(value = "list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Client>> getClients() {
+        Gson gson = new Gson();
         try {
-            return new ResponseEntity<>(clientService.listClients(), HttpStatus.OK);
+            String data = gson.toJson(clientService.listClients());
+            return new ResponseEntity(data, HttpStatus.OK);
         } catch(Exception e) {
             throw e;
         }
-
     }
-
 
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createClient(@RequestBody Client client){
