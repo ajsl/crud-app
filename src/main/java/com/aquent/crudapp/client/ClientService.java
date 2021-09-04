@@ -1,13 +1,8 @@
 package com.aquent.crudapp.client;
 
-
-import com.aquent.crudapp.person.Person;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
-public interface ClientDao {
+public interface ClientService {
 
     List<Client> listClients();
 
@@ -19,6 +14,5 @@ public interface ClientDao {
 
     void deleteClient(Integer clientId);
 
-//    Person[] getContacts(Integer clientId);
-
+    List<String> validateClient(Client client);
 }

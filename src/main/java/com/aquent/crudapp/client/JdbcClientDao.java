@@ -7,23 +7,24 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+@Component
 public class JdbcClientDao implements ClientDao {
 
     private static final String SQL_LIST_CLIENTS = "SELECT * FROM client";
     private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE client_id = :clientId";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-            + " = (:companyName, :websiteUri, phoneNumber, streetAddress, city, state, zipCode)"
+            + " = (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
             + "WHERE client_id = :clientId";
     private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-            + " VALUES (:companyName, :websiteUri, phoneNumber, streetAddress, city, state, zipCode)";
-    private static final String SQL_LIST_CONTACTS = "SELECT * FROM person WHERE client_id :clientId";
+            + " VALUES (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -59,19 +60,15 @@ public class JdbcClientDao implements ClientDao {
 
     }
 
-    @Override
-    public List<Person> getContacts(Integer id) {
-        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_CONTACTS, new JdbcPersonDao.PersonRowMapper());
-    }
-
     private static final class ClientRowMapper implements RowMapper<Client> {
 
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
             Client client = new Client();
             client.setClientId(rs.getInt("client_id"));
+            client.setCompanyName(rs.getString("company_name"));
             client.setWebsiteUri(rs.getString("website_uri"));
             client.setPhoneNumber(rs.getString("phone_number"));
-            client.setAddress(rs.getString("street_address"));
+            client.setStreetAddress(rs.getString("street_address"));
             client.setCity(rs.getString("city"));
             client.setState(rs.getString("state"));
             client.setZipCode(rs.getString("zip_code"));

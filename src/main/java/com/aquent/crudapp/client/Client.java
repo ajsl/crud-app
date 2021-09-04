@@ -1,11 +1,7 @@
 package com.aquent.crudapp.client;
 
 import com.aquent.crudapp.person.Person;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Client {
@@ -26,7 +22,7 @@ public class Client {
 
     private String zipCode;
 
-    private List<Integer> contacts;
+    private List<Person> contacts;
 
     public Integer getClientId() {
         return clientId;
@@ -40,6 +36,10 @@ public class Client {
         return companyName;
     }
 
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
+
+    public String getWebsiteUri() { return websiteUri; }
+
     public void setWebsiteUri(String websiteUri) {
         this.websiteUri = websiteUri;
     }
@@ -50,12 +50,12 @@ public class Client {
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getAddress() {
+    public String getStreetAddress() {
         return streetAddress;
     }
 
-    public void setAddress(String address) {
-        this.streetAddress = address;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     public String getCity() {
@@ -82,11 +82,9 @@ public class Client {
         this.zipCode = zipCode;
     }
 
-    public List<Integer> getContacts() {
-        return contacts;
-    }
+    public void setContacts(List<Person> people) { this.contacts = people; }
 
-    public void setContacts(Integer contact) {
-        this.contacts.add(contact);
+    public List<Person> getContacts(Integer contact) {
+        return contacts;
     }
 }
