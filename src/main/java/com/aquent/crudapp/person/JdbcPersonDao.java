@@ -70,7 +70,7 @@ public class JdbcPersonDao implements PersonDao {
     /**
      * Row mapper for person records.
      */
-    private static final class PersonRowMapper implements RowMapper<Person> {
+    public static final class PersonRowMapper implements RowMapper<Person> {
 
         @Override
         public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -83,6 +83,7 @@ public class JdbcPersonDao implements PersonDao {
             person.setCity(rs.getString("city"));
             person.setState(rs.getString("state"));
             person.setZipCode(rs.getString("zip_code"));
+            person.setClientId(rs.getInt("client_id"));
             return person;
         }
     }

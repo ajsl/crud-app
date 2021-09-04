@@ -37,6 +37,16 @@ public class PersonController {
         mav.addObject("persons", personService.listPeople());
         return mav;
     }
+//    @GetMapping(value = "list")
+//    public List<Person> list() {
+//
+//       List<Person> people = personService.listPeople();
+//
+//       System.out.println(people);
+//
+//       return people;
+//
+//    }
 
     /**
      * Renders an empty form used to create a new person record.
