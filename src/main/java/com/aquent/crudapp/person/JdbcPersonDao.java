@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.aquent.crudapp.client.Client;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -33,6 +34,7 @@ public class JdbcPersonDao implements PersonDao {
     private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
                                                   + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode, :clientId)";
     private static final String SQL_LIST_CONTACTS = "SELECT * FROM person WHERE client_id = :clientId";
+    private static final String SQL_READ_CLIENT_NAME ="SELECT company_name FROM client WHERE client_id = :clientId";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -43,7 +45,16 @@ public class JdbcPersonDao implements PersonDao {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Person> listPeople() {
-        return namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_PEOPLE, new PersonRowMapper());
+        List<Person> people = namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_PEOPLE, new PersonRowMapper());
+
+        for (Person person : people) {
+            Map<String, Integer> parameters = new HashMap<String, Integer>();
+            parameters.put("clientId", person.getClientId());
+            String clientName = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_NAME, parameters, String.class);
+            person.setClientName(clientName);
+        }
+
+        return people;
     }
 
     @Override

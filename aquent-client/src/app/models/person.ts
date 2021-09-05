@@ -1,4 +1,5 @@
 export interface IPerson {
+    personId: number;
     firstName: string;
     lastName: string;
     emailAddress: string;
@@ -7,4 +8,5 @@ export interface IPerson {
     state: string;
     zipCode: string;
     clientId: string;
+    clientName: string;
 }

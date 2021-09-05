@@ -19,7 +19,7 @@ export class ClientService {
   }
 
   getClient(id: number) {
-    return this.http.get<IClient>(this.baseUrl + 'client/' + id)
+    return this.http.get<IClient>(this.baseUrl + 'client/' + id);
   }
 
 

@@ -43,7 +43,10 @@ public class DefaultClientService implements ClientService {
 
     @Override
     public Client readClient(Integer clientId) {
-        return clientDao.readClient(clientId);
+        Client client = clientDao.readClient(clientId);
+        List<Person> contacts = personDao.listContacts(client.getClientId());
+        client.setContacts(contacts);
+        return client;
     }
 
     @Override

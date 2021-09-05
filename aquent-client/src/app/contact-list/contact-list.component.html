@@ -1,0 +1,22 @@
+
+<div class="p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Contacts</h1>
+  <button type="button" class="btn btn-primary">Add Contact</button>
+</div>
+
+<section class="container mt-4">
+  <div class="row justify-content-center" *ngIf="contacts">
+    <div class="col-auto">
+      <ul class="list-group" *ngFor="let contact of contacts">
+        <li class="list-group-item">
+          <div>
+            <h3>{{contact.firstName}} {{contact.lastName}}</h3>
+            <p *ngIf="contact.clientName">{{contact.clientName}}</p>
+            <p *ngIf="!contact.clientName">No client assigned</p>
+          </div>
+          <a [routerLink]="['/contact', contact.personId]" class="btn btn-primary btn-sm">details</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

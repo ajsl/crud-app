@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Controller for handling basic person management operations.
  */
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("person")
 public class PersonController {

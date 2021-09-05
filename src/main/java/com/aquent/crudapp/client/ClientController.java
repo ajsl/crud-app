@@ -48,14 +48,14 @@ public class ClientController {
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Client> getClient(@PathVariable Integer id) {
+        Gson gson = new Gson();
         try{
-            Client client = clientService.readClient(id);
-            return new ResponseEntity<>(client, HttpStatus.OK);
+            String client = gson.toJson(clientService.readClient(id));
+            return new ResponseEntity(client, HttpStatus.OK);
         } catch(Exception e){
 
             throw e;
         }
-
     }
 
     @PutMapping(value = "{id}")
