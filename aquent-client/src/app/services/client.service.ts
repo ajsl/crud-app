@@ -13,8 +13,13 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  getClients(): Observable<any> {
-    return this.http.get(this.baseUrl + 'client/list');
+  getClients() {
+    let request = this.http.get<IClient[]>(this.baseUrl + 'client/list');
+    return request;
+  }
+
+  getClient(id: number) {
+    return this.http.get<IClient>(this.baseUrl + 'client/' + id)
   }
 
 
