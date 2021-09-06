@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IClient } from '../models/client';
@@ -27,7 +26,7 @@ export class ClientService {
   }
 
   updateClient(client: IClient) {
-    return this.http.put(this.baseUrl + 'client/', client)
+    return this.http.put(this.baseUrl + 'client/', client);
   }
 
   deleteClient(id: number) {

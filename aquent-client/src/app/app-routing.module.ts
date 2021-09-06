@@ -6,14 +6,17 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
+import { FourOhFourComponent } from './shared/fourOhFour/fourOhFour.component';
 
 const routes: Routes = [
-  { path: '', component: ClientListComponent},
-  { path: 'client/:id', component: ClientDetailComponent},
-  { path: 'contact/list', component: ContactListComponent},
-  { path: 'contact/:id', component: ContactDetailComponent},
-  { path: 'edit/client/:id', component: EditClientComponent},
-  { path: 'edit/contact/:id', component: EditContactComponent}
+  { path: '', redirectTo: '/client', pathMatch: 'full' },
+  { path: 'client', component: ClientListComponent },
+  { path: 'client/:id', component: ClientDetailComponent },
+  { path: 'contact', component: ContactListComponent },
+  { path: 'contact/:id', component: ContactDetailComponent },
+  { path: 'edit/client/:id', component: EditClientComponent },
+  { path: 'edit/contact/:id', component: EditContactComponent },
+  { path: '**', component: FourOhFourComponent }
 ];
 
 @NgModule({

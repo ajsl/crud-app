@@ -9,6 +9,7 @@ import { PersonService } from '../services/person.service';
   styleUrls: ['./contact-detail.component.scss']
 })
 export class ContactDetailComponent implements OnInit {
+  spinner = true;
   contact!: IPerson;
   contactId = 0;
   constructor(private personService: PersonService, 
@@ -25,6 +26,7 @@ export class ContactDetailComponent implements OnInit {
     this.personService.getContact(id).subscribe({
       next: (data: IPerson) => {
         this.contact = data;
+        this.spinner = false;        
       }
     })
   }
@@ -32,10 +34,8 @@ export class ContactDetailComponent implements OnInit {
   deleteContact(id: number){
     this.personService.deleteContact(id).subscribe({
       next: () => {
-        this.router.navigateByUrl('/contact/list');
+        this.router.navigateByUrl('/contact');
       }
     })
-    
   }
-
 }

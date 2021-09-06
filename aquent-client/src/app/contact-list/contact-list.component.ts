@@ -11,6 +11,7 @@ import { PersonService } from '../services/person.service';
 })
 export class ContactListComponent implements OnInit {
   contacts!: IPerson[];
+  spinner = true;
 
   constructor(private personService: PersonService) { }
 
@@ -22,7 +23,10 @@ export class ContactListComponent implements OnInit {
     this.personService.getContacts().subscribe({
       next: (data: any) => {
         this.contacts = data;
+        this.spinner = false;
+      },
+      error: (error: any) => {
       }
-    })
+    });
   }
 }

@@ -9,6 +9,7 @@ import { ClientService } from '../services/client.service';
 })
 export class ClientListComponent implements OnInit {
   clients: IClient[] | undefined;
+  spinner = true;
 
   constructor(private clientService: ClientService) { }
 
@@ -17,6 +18,7 @@ export class ClientListComponent implements OnInit {
     ({
       next: (data: any) => {
         this.clients = data;
+        this.spinner = false;
       }
     })
   }

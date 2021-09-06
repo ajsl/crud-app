@@ -4,27 +4,19 @@
 </div>
 
 <div class="container mt-4">
-  <div *ngIf="clients" class="row">
-    <div class="col-3" *ngFor="let client of clients">
+  <div *ngIf="clients" class="row space-evenly">
+    <div class="col-md-6 col-lg-4 col-sm-12" *ngFor="let client of clients">
       <div class="card mb-2" style="width: 18rem;">
-        <!-- toDo add image -->
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
-          <h5 class="card-title">{{client.companyName}}</h5>
-          <p class="card-text">location: {{client.city}}</p>
-          <a href="{{client.websiteUri}}">
-            <p class="card-text">{{client.companyName}} website</p>
-          </a>
+          <div>
+            <h5 class="card-title">{{client.companyName}}</h5>
+            <p class="card-text">location: {{client.address.city}}</p>
+            <p class="card-text">Website: <a href="{{client.websiteUri}}">{{client.companyName}}</a></p>
+          </div>
           <button [routerLink]="['/client', client.clientId]" class="btn btn-primary">detail</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="!clients" class="container">
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-</div>
+<app-spinner [show]="spinner"></app-spinner>

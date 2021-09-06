@@ -1,13 +1,11 @@
 import { IPerson } from "./person";
+import { IAddress } from "./address";
 
 export interface IClient {
     clientId: number;
     companyName: string;
     websiteUri: string;
     phoneNumber: string;
-    streetAddress: string;
-    city: string;
-    state: string;
-    zipCode: string;
-    contacts: IPerson[];
+    address: IAddress;
+    contacts?: IPerson[];
 }

@@ -2,6 +2,7 @@ package com.aquent.crudapp.client;
 
 import com.aquent.crudapp.person.JdbcPersonDao;
 import com.aquent.crudapp.person.Person;
+import com.aquent.crudapp.shared.Address;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,10 +22,10 @@ public class JdbcClientDao implements ClientDao {
     private static final String SQL_READ_CLIENT = "SELECT * FROM client WHERE client_id = :clientId";
     private static final String SQL_DELETE_CLIENT = "DELETE FROM client WHERE client_id = :clientId";
     private static final String SQL_UPDATE_CLIENT = "UPDATE client SET (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-            + " = (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)"
+            + " = (:companyName, :websiteUri, :phoneNumber, :address.streetAddress, :address.city, :address.state, :address.zipCode)"
             + "WHERE client_id = :clientId";
     private static final String SQL_CREATE_CLIENT = "INSERT INTO client (company_name, website_uri, phone_number, street_address, city, state, zip_code)"
-            + " VALUES (:companyName, :websiteUri, :phoneNumber, :streetAddress, :city, :state, :zipCode)";
+            + " VALUES (:companyName, :websiteUri, :phoneNumber, :address.streetAddress, :address.city, :address.state, :address.zipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -64,14 +65,16 @@ public class JdbcClientDao implements ClientDao {
 
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
             Client client = new Client();
+            Address address = new Address();
+            address.setStreetAddress(rs.getString("street_address"));
+            address.setCity(rs.getString("city"));
+            address.setState(rs.getString("state"));
+            address.setZipCode(rs.getString("zip_code"));
+            client.setAddress(address);
             client.setClientId(rs.getInt("client_id"));
             client.setCompanyName(rs.getString("company_name"));
             client.setWebsiteUri(rs.getString("website_uri"));
             client.setPhoneNumber(rs.getString("phone_number"));
-            client.setStreetAddress(rs.getString("street_address"));
-            client.setCity(rs.getString("city"));
-            client.setState(rs.getString("state"));
-            client.setZipCode(rs.getString("zip_code"));
             return client;
         }
 

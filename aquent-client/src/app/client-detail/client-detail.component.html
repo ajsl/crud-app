@@ -5,18 +5,20 @@
         {{client.companyName}}
       </h3>
       <h4>Contact</h4>
-      <p>Phone number: {{client.phoneNumber}}</p>
+      <p class="fw-bold">Phone number: {{client.phoneNumber}}</p>
       <p>website: <a href="{{client.websiteUri}}">{{client.companyName}}</a></p>
-      <p>Address: </p>
-      <p>{{client.streetAddress}}</p>
-      <p>{{client.city}}</p>
-      <p>{{client.state}}</p>
-      <p>{{client.zipCode}}</p>
+      <ul class="list-group mb-1">Address:
+        <li class="list-group-item">{{client.address.streetAddress}}</li>
+        <li class="list-group-item">{{client.address.city}}</li>
+        <li class="list-group-item">{{client.address.state}}</li>
+        <li class="list-group-item">{{client.address.zipCode}}</li>
+      </ul>
       <div *ngIf="client.contacts">
         <h5>Contacts</h5>
-        <ul *ngFor="let contact of client.contacts">
-          <li><a [routerLink]="['/contact/', contact.clientId]">{{contact.firstName}} {{contact.lastName}} </a> <button (click)="removeContact(contact.personId)" class="btn btn-danger btn-sm">remove contact</button></li>
-
+        <ul class="list-group mb-2 pointer" *ngFor="let contact of client.contacts">
+          <li  class="list-group-item li-flex"><a [routerLink]="['/contact/', contact.clientId]">{{contact.firstName}}
+              {{contact.lastName}} </a> <button (click)="removeContact(contact.personId)"
+              class="btn btn-danger btn-sm">remove</button></li>
         </ul>
       </div>
       <button [routerLink]="['/edit/client', client.clientId]" type="button" class="btn btn-primary">Edit</button>
@@ -24,3 +26,4 @@
     </div>
   </div>
 </section>
+<app-spinner [show]="spinner"></app-spinner>

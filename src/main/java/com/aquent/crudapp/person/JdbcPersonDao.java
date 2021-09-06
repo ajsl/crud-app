@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.aquent.crudapp.client.Client;
+import com.aquent.crudapp.shared.Address;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -29,10 +30,10 @@ public class JdbcPersonDao implements PersonDao {
     private static final String SQL_READ_PERSON = "SELECT * FROM person WHERE person_id = :personId";
     private static final String SQL_DELETE_PERSON = "DELETE FROM person WHERE person_id = :personId";
     private static final String SQL_UPDATE_PERSON = "UPDATE person SET (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
-                                                  + " = (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode, :clientId)"
+                                                  + " = (:firstName, :lastName, :emailAddress, :address.streetAddress, :address.city, :address.state, :address.zipCode, :clientId)"
                                                   + " WHERE person_id = :personId";
     private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code, client_id)"
-                                                  + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode, :clientId)";
+                                                  + " VALUES (:firstName, :lastName, :emailAddress, :address.streetAddress, :address.city, :address.state, :address.zipCode, :clientId)";
     private static final String SQL_LIST_CONTACTS = "SELECT * FROM person WHERE client_id = :clientId";
     private static final String SQL_READ_CLIENT_NAME ="SELECT company_name FROM client WHERE client_id = :clientId";
 
@@ -110,14 +111,16 @@ public class JdbcPersonDao implements PersonDao {
         @Override
         public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
             Person person = new Person();
+            Address address = new Address();
+            address.setStreetAddress((rs.getString("street_address")));
+            address.setCity(rs.getString("city"));
+            address.setZipCode(rs.getString("zip_code"));
+            address.setState(rs.getString("state"));
             person.setPersonId(rs.getInt("person_id"));
             person.setFirstName(rs.getString("first_name"));
             person.setLastName(rs.getString("last_name"));
             person.setEmailAddress(rs.getString("email_address"));
-            person.setStreetAddress(rs.getString("street_address"));
-            person.setCity(rs.getString("city"));
-            person.setState(rs.getString("state"));
-            person.setZipCode(rs.getString("zip_code"));
+            person.setAddress(address);
             person.setClientId(rs.getInt("client_id"));
             return person;
         }

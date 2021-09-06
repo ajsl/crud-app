@@ -11,6 +11,9 @@ import { ContactDetailComponent } from './contact-detail/contact-detail.componen
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FourOhFourComponent } from './shared/fourOhFour/fourOhFour.component';
+import { AddressInputComponent } from './shared/addressInput/addressInput.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [						
@@ -20,7 +23,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       ContactListComponent,
       ContactDetailComponent,
       EditClientComponent,
-      EditContactComponent
+      EditContactComponent,
+      FourOhFourComponent,
+      AddressInputComponent,
+      SpinnerComponent
    ],
   imports: [
     BrowserModule,

@@ -24,51 +24,52 @@ export class EditClientComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     let clientId = this.getRoute();
     if (clientId) {
       this.clientService.getClient(+clientId).subscribe({
         next: (client: IClient) => {
           this.clientData = client;
-          console.log(this.clientData);
           this.clientForm = new FormGroup({
             companyName: new FormControl(client.companyName, Validators.required),
             websiteUri: new FormControl(client.websiteUri, Validators.required),
             phoneNumber: new FormControl(client.phoneNumber, [Validators.required, Validators.pattern('[0-9,a-z]{7,15}')]),
-            streetAddress: new FormControl(client.streetAddress, Validators.required),
-            city: new FormControl(client.city, Validators.required),
-            state: new FormControl(client.state, [Validators.required, Validators.pattern('[a-z]{2}')]),
-            zipCode: new FormControl(client.zipCode, [Validators.required, Validators.pattern('[0-9]{5}')]),
-            contacts: new FormArray([])
+            contacts: new FormArray([]),
+            address: new FormGroup({
+              streetAddress: new FormControl(client.address.streetAddress, Validators.required),
+              city: new FormControl(client.address.city, Validators.required),
+              state: new FormControl(client.address.state, [Validators.required, Validators.pattern('[a-z,A-Z]{2}')]),
+              zipCode: new FormControl(client.address.zipCode, [Validators.required, Validators.pattern('[0-9]{5}')]),
+            })
           });
         }
       })
-      
+
     } else {
       this.clientForm = this.formBuilder.group({
         companyName: ['', Validators.required],
         websiteUri: ['', Validators.required],
         phoneNumber: ['', [Validators.required, Validators.pattern('[a-z,0-9]{7,15}')]],
-        streetAddress: ['', Validators.required],
-        city: ['', Validators.required],
-        state: ['', [Validators.required, Validators.pattern('[a-z]{2}')]],
-        zipCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
-        contacts: new FormArray([])
+        contacts: new FormArray([]),
+        address: this.formBuilder.group({
+          streetAddress: ['', Validators.required],
+          city: ['', Validators.required],
+          state: ['', [Validators.required, Validators.pattern('[a-z,A-Z]{2}')]],
+          zipCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
+        })
       });
     }
-    
   }
 
   ngOnInit() {
     this.getContacts();
   }
 
-  getRoute(){
+  getRoute() {
     return this.route.snapshot.paramMap.get('id');
   }
 
   onCheckBoxChange(e: any) {
-    console.log(this.clientForm);
     const contactsCheck: FormArray = this.clientForm.get('contacts') as FormArray;
 
     if (e.target.checked) {
@@ -88,7 +89,6 @@ export class EditClientComponent implements OnInit {
   getContacts(): void {
     this.personService.getContacts().subscribe({
       next: (data: any) => {
-        console.log(data);
         this.contactsList = data;
       }
     })
@@ -99,41 +99,43 @@ export class EditClientComponent implements OnInit {
     let client = this.clientForm.value;
     let clientId;
     delete client.contacts;
-    if(!this.getRoute()) {
+    if (!this.getRoute()) {
       this.clientService.postClient(client).subscribe({
         next: (id: number) => {
           clientId = id;
-          console.log(id);
           this.updateContacts(contacts, clientId)
           this.router.navigateByUrl('/client/' + clientId);
         }
       })
     } else {
       client.clientId = this.getRoute();
-      console.log(client);
       this.clientService.updateClient(client).subscribe({
         next: () => {
-            this.updateContacts(contacts, client.clientId)
-            this.router.navigateByUrl('/client/' + client.clientId);
+          this.updateContacts(contacts, client.clientId)
+          this.router.navigateByUrl('/client/' + client.clientId);
         }
       })
     }
-    
+
   }
 
-  updateContacts(contacts: string[], id: number){
+  updateContacts(contacts: string[], id: number) {
     contacts.forEach(person => {
       this.personService.updateContactsClient(+person, id)
     });
-  } 
+  }
 
-
-  addContactsToFormArray() {
-    console.log(this.contactsList);
-    if(this.contactsList){
-      this.contactsList.forEach(person => {
-        this.contacts.push(this.formBuilder.control(''));
-      });
+  checkCurrentContacts(id: number): string {
+    if (this.clientData) {
+      let clientData = this.clientData.contacts;
+      if (clientData) {
+        for (let i = 0; i < clientData.length; i++) {
+          if (clientData[i].personId === id) {
+            return "checked";
+          }
+        }
+      }
     }
+    return "";
   }
 }

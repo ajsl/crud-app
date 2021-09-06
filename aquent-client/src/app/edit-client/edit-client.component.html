@@ -1,139 +1,108 @@
+<div class="p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Client Form</h1>
+</div>
 
-<div class="container m-5">
-  <div class="row justify-content-md-center" *ngIf="clientForm">
-    <form class="needs-validation col-6" [formGroup]='clientForm' (ngSubmit)="onSubmit()">
+<div class="container m-3">
+  <div class="row justify-content-center" *ngIf="clientForm">
+    <form class="needs-validation col-md-6 col-sm-12" [formGroup]='clientForm' (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label class="form-label" for="companyName">Company name :</label>
-        <span
-        *ngIf="clientForm.get('companyName')?.invalid && 
+        <span *ngIf="clientForm.get('companyName')?.invalid && 
         clientForm.get('companyName')?.touched && 
-        clientForm.get('companyName')?.errors!['required']"
-        class="invalid-feedback"
-        >
+        clientForm.get('companyName')?.errors!['required']" class="invalid-feedback">
           Company name is required
         </span>
-        <input type="text" id="companyName" class="form-control" formControlName="companyName"
-        [ngClass]="{'is-invalid': clientForm.get('companyName')?.invalid && 
+        <input type="text" id="companyName" class="form-control" formControlName="companyName" [ngClass]="{'is-invalid': clientForm.get('companyName')?.invalid && 
         clientForm.get('companyName')?.touched && clientForm.get('companyName')?.errors}">
       </div>
       <div class="mb-3">
         <label class="form-label" for="websiteUri">Website Url:</label>
-        <span
-        *ngIf="clientForm.get('websiteUri')?.invalid && 
+        <span *ngIf="clientForm.get('websiteUri')?.invalid && 
         clientForm.get('websiteUri')?.touched && 
-        clientForm.get('websiteUri')?.errors!['required']"
-        class="invalid-feedback"
-        >
+        clientForm.get('websiteUri')?.errors!['required']" class="invalid-feedback">
           Websire Url is required
         </span>
-        <input type="text" class="form-control" formControlName="websiteUri"
-        [ngClass]="{'is-invalid': clientForm.get('websiteUri')?.invalid && 
+        <input type="text" class="form-control" formControlName="websiteUri" [ngClass]="{'is-invalid': clientForm.get('websiteUri')?.invalid && 
         clientForm.get('websiteUri')?.touched && clientForm.get('websiteUri')?.errors}">
         <span *ngIf=""></span>
       </div>
       <div class="mb-3">
         <label class="form-label" for="phoneNumber">Phone number:</label>
-        <span
-        *ngIf="clientForm.get('phoneNumber')?.invalid && 
+        <span *ngIf="clientForm.get('phoneNumber')?.invalid && 
         clientForm.get('phoneNumber')?.touched && 
-        clientForm.get('phoneNumber')?.errors!['required']"
-        class="invalid-feedback"
-        >
+        clientForm.get('phoneNumber')?.errors!['required']" class="invalid-feedback">
           Phone number is required
         </span>
-        <span
-        *ngIf="clientForm.get('phoneNumber')?.invalid && 
+        <span *ngIf="clientForm.get('phoneNumber')?.invalid && 
         clientForm.get('phoneNumber')?.touched && 
-        clientForm.get('phoneNumber')?.errors!['pattern']"
-        class="invalid-feedback"
-        >
+        clientForm.get('phoneNumber')?.errors!['pattern']" class="invalid-feedback">
           Phone number must be between 7 and 15 charecters;
         </span>
-        <input type="text" class="form-control" formControlName="phoneNumber" 
-        [ngClass]="{'is-invalid': clientForm.get('phoneNumber')?.invalid && 
+        <input type="text" class="form-control" formControlName="phoneNumber" [ngClass]="{'is-invalid': clientForm.get('phoneNumber')?.invalid && 
         clientForm.get('phoneNumber')?.touched && clientForm.get('phoneNumber')?.errors}">
       </div>
-      <div class="mb-3">
-        <label class="form-label" for="streetAddress">Street:</label>
-        <span
-        *ngIf="clientForm.get('streetAddress')?.invalid && 
-        clientForm.get('streetAddress')?.touched && 
-        clientForm.get('streetAddress')?.errors!['required']"
-        class="invalid-feedback"
-        >
-          Street is required
-        </span>
-        <input type="text" class="form-control" formControlName="streetAddress"
-        [ngClass]="{'is-invalid': clientForm.get('streetAddress')?.invalid && 
-        clientForm.get('streetAddress')?.touched && clientForm.get('streetAddress')?.errors}">
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="city">City:</label>
-        <span
-        *ngIf="clientForm.get('city')?.invalid && 
-        clientForm.get('city')?.touched && 
-        clientForm.get('city')?.errors!['required']"
-        class="invalid-feedback"
-        >
-          City is required
-        </span>
-        <input type="text" class="form-control" formControlName="city"
-        [ngClass]="{'is-invalid': clientForm.get('city')?.invalid && 
-        clientForm.get('city')?.touched && clientForm.get('city')?.errors}">
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="state">State:</label>
-        <span
-        *ngIf="clientForm.get('state')?.invalid && 
-        clientForm.get('state')?.touched && 
-        clientForm.get('state')?.errors!['required']"
-        class="invalid-feedback"
-        >
-          State is required
-        </span>
-        <span
-        *ngIf="clientForm.get('state')?.invalid && 
-        clientForm.get('state')?.touched && 
-        clientForm.get('state')?.errors!['pattern']"
-        class="invalid-feedback"
-        >
-          State must be 2 charecters long;
-        </span>
-        <input class="form-control" type="text" formControlName="state"
-        [ngClass]="{'is-invalid': clientForm.get('state')?.invalid && 
-        clientForm.get('state')?.touched && clientForm.get('state')?.errors}">
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="zipCode">Zip code:</label>
-        <span
-        *ngIf="clientForm.get('zipCode')?.invalid && 
-        clientForm.get('zipCode')?.touched && 
-        clientForm.get('zipCode')?.errors!['required']"
-        class="invalid-feedback"
-        >
-          Zip code is required
-        </span>
-        <span
-        *ngIf="clientForm.get('zipCode')?.invalid && 
-        clientForm.get('zipCode')?.touched && 
-        clientForm.get('zipCode')?.errors!['pattern']"
-        class="invalid-feedback"
-        >
-          Zip code must be 5 numbers;
-        </span>
-        <input type="text" class="form-control" formControlName="zipCode" 
-        [ngClass]="{'is-invalid': clientForm.get('zipCode')?.invalid && 
-        clientForm.get('zipCode')?.touched && clientForm.get('zipCode')?.errors}">
+      <div formGroupName="address">
+        <div class="mb-3">
+          <label class="form-label" for="streetAddress">Street:</label>
+          <span *ngIf="clientForm.controls.address.get('streetAddress')?.invalid && 
+          clientForm.controls.address.get('streetAddress')?.touched && 
+          clientForm.controls.address.get('streetAddress')?.errors!['required']" class="invalid-feedback">
+            Street is required
+          </span>
+          <input type="text" class="form-control" formControlName="streetAddress"
+            [ngClass]="{'is-invalid': clientForm.controls.address.get('streetAddress')?.invalid && 
+          clientForm.controls.address.get('streetAddress')?.touched && clientForm.controls.address.get('streetAddress')?.errors}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="city">City:</label>
+          <span *ngIf="clientForm.controls.address.get('city')?.invalid && 
+          clientForm.controls.address.get('city')?.touched && 
+          clientForm.controls.address.get('city')?.errors!['required']" class="invalid-feedback">
+            City is required
+          </span>
+          <input type="text" class="form-control" formControlName="city" [ngClass]="{'is-invalid': clientForm.controls.address.get('city')?.invalid && 
+          clientForm.controls.address.get('city')?.touched && clientForm.controls.address.get('city')?.errors}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="state">State:</label>
+          <span *ngIf="clientForm.controls.address.get('state')?.invalid && 
+          clientForm.controls.address.get('state')?.touched && 
+          clientForm.controls.address.get('state')?.errors!['required']" class="invalid-feedback">
+            State is required
+          </span>
+          <span *ngIf="clientForm.get('state')?.invalid && 
+          clientForm.controls.address.get('state')?.touched && 
+          clientForm.controls.address.get('state')?.errors!['pattern']" class="invalid-feedback">
+            State must be 2 charecters long;
+          </span>
+          <input class="form-control" type="text" formControlName="state" [ngClass]="{'is-invalid': clientForm.controls.address.get('state')?.invalid && 
+          clientForm.controls.address.get('state')?.touched && clientForm.controls.address.get('state')?.errors}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="zipCode">Zip code:</label>
+          <span *ngIf="clientForm.controls.address.get('zipCode')?.invalid && 
+          clientForm.controls.address.get('zipCode')?.touched && 
+          clientForm.controls.address.get('zipCode')?.errors!['required']" class="invalid-feedback">
+            Zip code is required
+          </span>
+          <span *ngIf="clientForm.get('zipCode')?.invalid && 
+          clientForm.controls.address.get('zipCode')?.touched && 
+          clientForm.controls.address.get('zipCode')?.errors!['pattern']" class="invalid-feedback">
+            Zip code must be 5 numbers;
+          </span>
+          <input type="text" class="form-control" formControlName="zipCode" [ngClass]="{'is-invalid': clientForm.controls.address.get('zipCode')?.invalid && 
+          clientForm.controls.address.get('zipCode')?.touched && clientForm.controls.address.get('zipCode')?.errors}">
+        </div>
       </div>
       <label>Contacts:</label>
       <div class="mb-3 form-check" *ngFor="let contact of contactsList; let i=index">
-        <input class="form-check-input" [value]="contact.personId" (change)="onCheckBoxChange($event)" type="checkbox" id="{{i}}">
+        <input class="form-check-input" [value]="contact.personId" (change)="onCheckBoxChange($event)" type="checkbox"
+          id="{{i}}" [checked]="checkCurrentContacts(contactsList[i].personId)">
         <label class="form-check-label" for="{{i}}">
-          {{contactsList[i].firstName}}  {{contactsList[i].lastName}}
+          {{contactsList[i].firstName}} {{contactsList[i].lastName}}
         </label>
       </div>
       <button [disabled]="clientForm.invalid" class="btn btn-primary" type="submit">Submit</button>
     </form>
   </div>
 </div>
-

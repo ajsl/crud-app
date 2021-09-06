@@ -6,3 +6,19 @@
 .invalid-feedback {
     display: inline;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+.li-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sm-select {
+    max-width: 30%;
+    margin-bottom: 10px;
+}

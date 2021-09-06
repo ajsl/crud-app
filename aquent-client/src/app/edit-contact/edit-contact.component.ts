@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IClient } from '../models/client';
 import { IPerson } from '../models/person';
@@ -36,11 +36,13 @@ export class EditContactComponent implements OnInit {
             firstName: new FormControl(contact.firstName, Validators.required),
             lastName: new FormControl(contact.lastName, Validators.required),
             emailAddress: new FormControl(contact.emailAddress, [Validators.required, Validators.email]),
-            streetAddress: new FormControl(contact.streetAddress, Validators.required),
-            city: new FormControl(contact.city, Validators.required),
-            state: new FormControl(contact.state, [Validators.required, Validators.pattern('[a-z]{2}')]),
-            zipCode: new FormControl(contact.zipCode, [Validators.required, Validators.pattern('[0-9]{5}')]),
-            clientId: new FormControl(contact.clientId)
+            clientId: new FormControl(contact.clientId),
+            address: new FormGroup({
+              streetAddress: new FormControl(contact.address.streetAddress, Validators.required),
+              city: new FormControl(contact.address.city, Validators.required),
+              state: new FormControl(contact.address.state, [Validators.required, Validators.pattern('[a-z,A-Z]{2}')]),
+              zipCode: new FormControl(contact.address.zipCode, [Validators.required, Validators.pattern('[0-9]{5}')]),
+            })
           })
         }
       })
@@ -49,11 +51,13 @@ export class EditContactComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       emailAddress: ['', [Validators.required, Validators.email]],
-      streetAddress: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', [Validators.required, Validators.pattern('[a-z]{2}')]],
-      zipCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
-      clientId: ['']
+      clientId: [''],
+      address: this.formBuilder.group({
+        streetAddress: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', [Validators.required, Validators.pattern('[a-z,A-Z]{2}')]],
+        zipCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
+      }),
     });
   }
 
@@ -67,22 +71,36 @@ export class EditContactComponent implements OnInit {
 
   onSelectChange(e: any) {
     this.contactForm.value['clientId'] = e.target.value[0];
-    console.log(this.contactForm.value);
   }
 
   getClients(): void {
     this.clientService.getClients().subscribe({
       next: (data: any) => {
-        console.log(data);
         this.clientsList = data;
-        data.unshift(' ');
+        data.push({
+          companyName: "None",
+          clientId: 0
+        });
       }
     })
   }
 
+  checkCurrentClient() {
+    if (this.contactData && this.clientsList) {
+      for (let i = 0; i < this.clientsList.length; i++) {
+        if (this.clientsList[i].clientId === this.contactData.clientId) {
+          return this.clientsList[i].companyName;
+        }
+      }
+    }
+    return '';
+  }
+
   onSubmit(): void {
     let contact = this.contactForm.value;
-    contact['clientId'] = contact['clientId'][0];
+    if(contact['clientId'] > 0){
+      contact['clientId'] = contact['clientId'][0];
+    }
     contact.personId = this.getRouteParam();
     let personId = this.getRouteParam();
     if (!personId) {
@@ -104,15 +122,6 @@ export class EditContactComponent implements OnInit {
     contacts.forEach(person => {
       this.personService.updateContactsClient(+person, id)
     });
-  }
-
-  addContactsToFormArray() {
-    console.log(this.clientsList);
-    if (this.clientsList) {
-      this.clientsList.forEach(person => {
-        this.contacts.push(this.formBuilder.control(''));
-      });
-    }
   }
 }
 

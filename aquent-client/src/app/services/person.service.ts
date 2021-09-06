@@ -9,7 +9,7 @@ import { IPerson } from '../models/person';
 export class PersonService {
   baseUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getContacts() {
     let request = this.http.get<IPerson>(this.baseUrl + "person/list");
@@ -43,7 +43,7 @@ constructor(private http: HttpClient) { }
             console.log("updated contact");
           }
         });
-      } 
+      }
     });
   }
 }
