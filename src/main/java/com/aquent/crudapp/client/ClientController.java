@@ -58,8 +58,8 @@ public class ClientController {
         }
     }
 
-    @PutMapping(value = "{id}")
-    public ResponseEntity updateClient(@PathVariable String id, @RequestBody Client client){
+    @PutMapping()
+    public ResponseEntity updateClient(@RequestBody Client client){
         try{
             List<String> errors = clientService.validateClient(client);
             if (errors.isEmpty()){

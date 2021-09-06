@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormArray, AbstractControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IClient } from '../models/client';
 import { IPerson } from '../models/person';
@@ -15,7 +15,6 @@ export class EditClientComponent implements OnInit {
   clientForm!: FormGroup;
   clientData!: IClient;
   contactsList!: IPerson[];
-  submitted = false;
   get contacts() {
     return this.clientForm.get('contacts') as FormArray;
   };
@@ -26,20 +25,20 @@ export class EditClientComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) { 
-    let clientId = this.route.snapshot.paramMap.get('id');
+    let clientId = this.getRoute();
     if (clientId) {
       this.clientService.getClient(+clientId).subscribe({
         next: (client: IClient) => {
           this.clientData = client;
           console.log(this.clientData);
           this.clientForm = new FormGroup({
-            companyName: new FormControl(client.companyName),
-            websiteUri: new FormControl(client.websiteUri),
-            phoneNumber: new FormControl(client.phoneNumber),
-            streetAddress: new FormControl(client.streetAddress),
-            city: new FormControl(client.city),
-            state: new FormControl(client.state),
-            zipCode: new FormControl(client.zipCode),
+            companyName: new FormControl(client.companyName, Validators.required),
+            websiteUri: new FormControl(client.websiteUri, Validators.required),
+            phoneNumber: new FormControl(client.phoneNumber, [Validators.required, Validators.pattern('[0-9,a-z]{7,15}')]),
+            streetAddress: new FormControl(client.streetAddress, Validators.required),
+            city: new FormControl(client.city, Validators.required),
+            state: new FormControl(client.state, [Validators.required, Validators.pattern('[a-z]{2}')]),
+            zipCode: new FormControl(client.zipCode, [Validators.required, Validators.pattern('[0-9]{5}')]),
             contacts: new FormArray([])
           });
         }
@@ -47,13 +46,13 @@ export class EditClientComponent implements OnInit {
       
     } else {
       this.clientForm = this.formBuilder.group({
-        companyName: [''],
-        websiteUri: [''],
-        phoneNumber: [''],
-        streetAddress: [''],
-        city: [''],
-        state: [''],
-        zipCode: [''],
+        companyName: ['', Validators.required],
+        websiteUri: ['', Validators.required],
+        phoneNumber: ['', [Validators.required, Validators.pattern('[a-z,0-9]{7,15}')]],
+        streetAddress: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', [Validators.required, Validators.pattern('[a-z]{2}')]],
+        zipCode: ['', [Validators.required, Validators.pattern('[0-9]{5}')]],
         contacts: new FormArray([])
       });
     }
@@ -64,9 +63,8 @@ export class EditClientComponent implements OnInit {
     this.getContacts();
   }
 
-  //getter to access form controls from the template
-  get fc(): {[key: string]: AbstractControl} {
-    return this.clientForm.controls;
+  getRoute(){
+    return this.route.snapshot.paramMap.get('id');
   }
 
   onCheckBoxChange(e: any) {
@@ -87,7 +85,6 @@ export class EditClientComponent implements OnInit {
     }
   }
 
-
   getContacts(): void {
     this.personService.getContacts().subscribe({
       next: (data: any) => {
@@ -98,18 +95,30 @@ export class EditClientComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true; 
     let contacts = this.clientForm.value.contacts;
+    let client = this.clientForm.value;
     let clientId;
-    delete this.clientForm.value.contacts;
-    this.clientService.postClient(this.clientForm.value).subscribe({
-      next: (id: number) => {
-        clientId = id;
-        console.log(id);
-        this.updateContacts(contacts, clientId)
-        this.router.navigateByUrl('/client/' + clientId);
-      }
-    })
+    delete client.contacts;
+    if(!this.getRoute()) {
+      this.clientService.postClient(client).subscribe({
+        next: (id: number) => {
+          clientId = id;
+          console.log(id);
+          this.updateContacts(contacts, clientId)
+          this.router.navigateByUrl('/client/' + clientId);
+        }
+      })
+    } else {
+      client.clientId = this.getRoute();
+      console.log(client);
+      this.clientService.updateClient(client).subscribe({
+        next: () => {
+            this.updateContacts(contacts, client.clientId)
+            this.router.navigateByUrl('/client/' + client.clientId);
+        }
+      })
+    }
+    
   }
 
   updateContacts(contacts: string[], id: number){

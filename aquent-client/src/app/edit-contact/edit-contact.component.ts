@@ -27,7 +27,7 @@ export class EditContactComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    let contactId = this.route.snapshot.paramMap.get('id');
+    let contactId = this.getRouteParam();
     if (contactId) {
       this.personService.getContact(+contactId).subscribe({
         next: (contact: IPerson) => {
@@ -60,10 +60,9 @@ export class EditContactComponent implements OnInit {
   ngOnInit() {
     this.getClients();
   }
-  
-  //getter to access form controls from the template
-  get fc(): {[key: string]: AbstractControl} {
-    return this.contactForm.controls;
+
+  getRouteParam() {
+    return this.route.snapshot.paramMap.get('id');
   }
 
   onSelectChange(e: any) {
@@ -82,13 +81,23 @@ export class EditContactComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.contactForm.value);
-    this.contactForm.value['clientId'] = this.contactForm.value['clientId'][0];
-    this.personService.postContact(this.contactForm.value).subscribe({
-      next: (id: number) => {
-        this.router.navigateByUrl('/contact/' + id);
-      }
-    })
+    let contact = this.contactForm.value;
+    contact['clientId'] = contact['clientId'][0];
+    contact.personId = this.getRouteParam();
+    let personId = this.getRouteParam();
+    if (!personId) {
+      this.personService.postContact(this.contactForm.value).subscribe({
+        next: (id: number) => {
+          this.router.navigateByUrl('/contact/' + id);
+        }
+      });
+    } else {
+      this.personService.updateContact(contact).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/contact/' + contact.personId);
+        }
+      })
+    }
   }
 
   updateContacts(contacts: string[], id: number) {
@@ -96,7 +105,6 @@ export class EditContactComponent implements OnInit {
       this.personService.updateContactsClient(+person, id)
     });
   }
-
 
   addContactsToFormArray() {
     console.log(this.clientsList);

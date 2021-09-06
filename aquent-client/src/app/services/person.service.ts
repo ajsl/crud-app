@@ -29,11 +29,7 @@ constructor(private http: HttpClient) { }
   }
 
   updateContact(contact: IPerson) {
-    let response = this.http.put(this.baseUrl + 'person/', contact).subscribe({
-      next: () => {
-      console.log("update contact");
-      }
-    });
+    return this.http.put(this.baseUrl + 'person/', contact);
   }
 
   updateContactsClient(contactId: number, clientId: number) {
@@ -42,7 +38,11 @@ constructor(private http: HttpClient) { }
       next: (data: IPerson) => {
         contact = data;
         contact.clientId = clientId;
-        this.updateContact(contact);
+        this.updateContact(contact).subscribe({
+          next: () => {
+            console.log("updated contact");
+          }
+        });
       } 
     });
   }

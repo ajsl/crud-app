@@ -41,10 +41,26 @@ export class ClientDetailComponent implements OnInit {
     })
   }
 
-  removeContact(personId: number): void {
+  //reload component to show updated coontact list
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigateByUrl('client/' + this.client.clientId)
+  }
+
+  //need a better way to handle this
+  //introducing a delay to allow the backend to remove client from db
+
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async removeContact(personId: number) {
     this.personService.updateContactsClient(personId, 0);
-    this.client.contacts.filter(x => x.personId !== personId); 
-    
+    this.client.contacts.filter(x => x.personId !== personId);
+    await this.sleep(1000);
+    this.reloadComponent();
+
   }
 
 }
