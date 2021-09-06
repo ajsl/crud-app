@@ -18,9 +18,15 @@ Add ability to manage clients (companies):
 * When viewing a client, the associated contacts should be shown.
 * When editing a client, the user should be able to add or remove associated contacts.
 
-## Story #2
+## ToDo 
 
-Add client­side styling and validation:
+##UI
+- Unit testing throughout
+- Refactor the form components create a reusable input or address form
+- Error handling and messaging
 
-* Using your preferred javascript validation technique, prevent the submission on invalid data on the edit forms and inform the user of errors. The validations implemented on the front­end should be equivalent to the existing server side validation.
-* Add standard styling to the pages using a modern CSS3/HTML5 framework like Twitter Bootstrap or Foundation (or similar).
+##Back-End
+
+- Unit tests
+- Error handling
+- 
