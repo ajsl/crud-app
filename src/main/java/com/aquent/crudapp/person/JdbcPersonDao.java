@@ -48,12 +48,14 @@ public class JdbcPersonDao implements PersonDao {
         List<Person> people = namedParameterJdbcTemplate.getJdbcOperations().query(SQL_LIST_PEOPLE, new PersonRowMapper());
 
         for (Person person : people) {
-            Map<String, Integer> parameters = new HashMap<String, Integer>();
-            parameters.put("clientId", person.getClientId());
-            String clientName = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_NAME, parameters, String.class);
-            person.setClientName(clientName);
+            Integer clientId = person.getClientId();
+            if(clientId > 0){
+                Map<String, Integer> parameters = new HashMap<String, Integer>();
+                parameters.put("clientId", clientId);
+                String clientName = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_NAME, parameters, String.class);
+                person.setClientName(clientName);
+            }
         }
-
         return people;
     }
 
@@ -68,7 +70,14 @@ public class JdbcPersonDao implements PersonDao {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Person readPerson(Integer personId) {
-        return namedParameterJdbcTemplate.queryForObject(SQL_READ_PERSON, Collections.singletonMap("personId", personId), new PersonRowMapper());
+        Person person = namedParameterJdbcTemplate.queryForObject(SQL_READ_PERSON, Collections.singletonMap("personId", personId), new PersonRowMapper());
+        if (person.getClientId() > 0){
+            Map<String, Integer> parameters = new HashMap<String, Integer>();
+            parameters.put("clientId", person.getClientId());
+            String clientName = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT_NAME, parameters, String.class);
+            person.setClientName(clientName);
+        }
+        return person;
     }
 
     @Override

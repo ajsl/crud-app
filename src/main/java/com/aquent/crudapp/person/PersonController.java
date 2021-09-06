@@ -76,8 +76,8 @@ public class PersonController {
      *
      * @return HttpStatus NoContent
      */
-    @PutMapping(value = "{id")
-    public ResponseEntity updatePerson(@PathVariable String id, @RequestBody Person person){
+    @PutMapping()
+    public ResponseEntity updatePerson(@RequestBody Person person){
         try{
             List<String> errors = personService.validatePerson(person);
             if(errors.isEmpty()){

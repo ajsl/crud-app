@@ -4,16 +4,16 @@
       <h3>
         {{contact.firstName}} {{contact.lastName}}
       </h3>
+      <div *ngIf="contact.clientName">
+        <p class="lead">{{contact.clientName}}</p>
+      </div>
       <p>Email: {{contact.emailAddress}}</p>
         <h4>Address:</h4>
         <p>{{contact.streetAddress}}</p>
         <p>{{contact.city}}</p>
         <p>{{contact.state}}, {{contact.zipCode}}</p>
-      <div *ngIf="contact.clientName">
-        <h4>Client</h4>
-        <p>{{contact.clientName}}</p>
-      </div>
-      <button type="button" class="btn btn-primary">Edit</button>
+     
+      <button [routerLink]="['/edit/contact', contact.personId]" type="button" class="btn btn-primary">Edit</button>
       <button type="button" (click)="deleteContact(contact.personId)" class="btn btn-danger">Delete</button>
     </div>
   </div>

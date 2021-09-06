@@ -1,0 +1,137 @@
+
+<div class="container">
+  <div class="row justify-content-md-center" *ngIf="contactForm">
+    <form class="needs-validation" [formGroup]='contactForm' (ngSubmit)="onSubmit()" novalidate>
+      <div class="mb-3 has-validation">
+        <label class="form-label" for="firstName">First name:</label>
+        <span
+        *ngIf="contactForm.get('firstName')?.invalid && 
+        contactForm.get('firstName')?.touched && 
+        contactForm.get('firstName')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          First name is required
+        </span>
+        <input type="text" class="form-control" 
+        [ngClass]="{'is-invalid': contactForm.get('firstName')?.invalid && 
+        contactForm.get('firstName')?.touched && contactForm.get('firstName')?.errors}"
+          formControlName="firstName">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="lastName">Last name:</label>
+        <span
+        *ngIf="contactForm.get('lastName')?.invalid && 
+        contactForm.get('lastName')?.touched && 
+        contactForm.get('lastName')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          Last name is required
+        </span>
+        <input type="text" class="form-control" formControlName="lastName" 
+        [ngClass]="{'is-invalid': contactForm.get('lastName')?.invalid && 
+        contactForm.get('lastName')?.touched && contactForm.get('lastName')?.errors!['required']}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="emailAddress">Email address:</label>
+        <span
+        *ngIf="contactForm.get('emailAddress')?.invalid && 
+        contactForm.get('emailAddress')?.touched && 
+        contactForm.get('emailAddress')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          Email is required
+        </span>
+        <span
+        *ngIf="contactForm.get('emailAddress')?.invalid && 
+        contactForm.get('emailAddress')?.touched && 
+        contactForm.get('emailAddress')?.errors!['email']"
+        class="invalid-feedback"
+        >
+          Incorect email format
+        </span>
+        <input type="text" class="form-control" formControlName="emailAddress" 
+        [ngClass]="{'is-invalid': contactForm.get('emailAddress')?.invalid && 
+        contactForm.get('emailAddress')?.touched && contactForm.get('emailAddress')?.errors}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="streetAddress">Street:</label>
+        <span
+        *ngIf="contactForm.get('streetAddress')?.invalid && 
+        contactForm.get('streetAddress')?.touched && 
+        contactForm.get('streetAddress')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          Street is required
+        </span>
+        <input type="text" class="form-control" formControlName="streetAddress" 
+        [ngClass]="{'is-invalid': contactForm.get('streetAddress')?.invalid && 
+        contactForm.get('streetAddress')?.touched && contactForm.get('streetAddress')?.errors}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="city">City:</label>
+        <span
+        *ngIf="contactForm.get('city')?.invalid && 
+        contactForm.get('city')?.touched && 
+        contactForm.get('city')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          City is required
+        </span>
+        <input type="text" class="form-control" formControlName="city" 
+        [ngClass]="{'is-invalid': contactForm.get('city')?.invalid && 
+        contactForm.get('city')?.touched && contactForm.get('city')?.errors}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="state">State:</label>
+        <span
+        *ngIf="contactForm.get('state')?.invalid && 
+        contactForm.get('state')?.touched && 
+        contactForm.get('state')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          State is required
+        </span>
+        <span
+        *ngIf="contactForm.get('state')?.invalid && 
+        contactForm.get('state')?.touched && 
+        contactForm.get('state')?.errors!['pattern']"
+        class="invalid-feedback"
+        >
+          State must be 2 characters long
+        </span>
+        <input class="form-control" type="text" formControlName="state"
+        [ngClass]="{'is-invalid': contactForm.get('state')?.invalid && 
+        contactForm.get('state')?.touched && contactForm.get('state')?.errors}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="zipCode">Zip code:</label>
+        <span
+        *ngIf="contactForm.get('zipCode')?.invalid && 
+        contactForm.get('zipCode')?.touched && 
+        contactForm.get('zipCode')?.errors!['required']"
+        class="invalid-feedback"
+        >
+          Zip code is required
+        </span>
+        <span
+        *ngIf="contactForm.get('zipCode')?.invalid && 
+        contactForm.get('zipCode')?.touched && 
+        contactForm.get('zipCode')?.errors!['pattern']" 
+        class="invalid-feedback"
+        >
+          Zip code must be 5 characters long
+        </span>
+        <input type="text" class="form-control" formControlName="zipCode" 
+        [ngClass]="{'is-invalid': contactForm.get('zipCode')?.invalid && 
+        contactForm.get('zipCode')?.touched && contactForm.get('zipCode')?.errors}">
+      </div>
+      <label for="clients">Clients:</label>
+      <select multiple class="form-select sm-select" (change)="onSelectChange($event)" formControlName="clientId">
+        <option [value]="client.clientId" *ngFor="let client of clientsList; let i=index">
+          {{clientsList[i].companyName}}
+        </option>
+      </select>
+      <button [disabled]="!contactForm.valid" class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

@@ -1,13 +1,12 @@
-
 <div class="p-3 pb-md-4 mx-auto text-center">
   <h1 class="display-4 fw-normal">Clients</h1>
-  <button type="button" class="btn btn-primary">Add Client</button>
+  <button [routerLink]="['/edit/client', '']" type="button" class="btn btn-primary">Add Client</button>
 </div>
 
 <div class="container mt-4">
-  <div class="row">
+  <div *ngIf="clients" class="row">
     <div class="col-3" *ngFor="let client of clients">
-      <div class="card" style="width: 18rem;">
+      <div class="card mb-2" style="width: 18rem;">
         <!-- toDo add image -->
         <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
@@ -19,6 +18,13 @@
           <button [routerLink]="['/client', client.clientId]" class="btn btn-primary">detail</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!clients" class="container">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 </div>

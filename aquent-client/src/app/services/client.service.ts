@@ -22,5 +22,13 @@ export class ClientService {
     return this.http.get<IClient>(this.baseUrl + 'client/' + id);
   }
 
+  postClient(client: IClient) {
+    return this.http.post<number>(this.baseUrl + 'client/create', client);
+  }
+
+  deleteClient(id: number) {
+    return this.http.delete(this.baseUrl + 'client/' + id);
+  }
+
 
 }

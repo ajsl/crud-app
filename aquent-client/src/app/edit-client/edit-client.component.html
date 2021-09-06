@@ -1,0 +1,48 @@
+
+<div class="container">
+  <div class="row justify-content-md-center" *ngIf="clientForm">
+    <form [formGroup]='clientForm' (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label" for="companyName">Company name :</label>
+        <input type="text" id="companyName" class="form-control" formControlName="companyName">
+        <div *ngIf="fc.touched && fc.companyName.errors" class="invalid-feedback">
+          <div *ngIf="fc.companyName.errors.required" >Company name is required</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="websiteUri">Website Url:</label>
+        <input type="text" class="form-control" formControlName="websiteUri">
+        <span *ngIf=""></span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="phoneNumber">Phone number:</label>
+        <input type="text" class="form-control" formControlName="phoneNumber">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="streetAddress">Street:</label>
+        <input type="text" class="form-control" formControlName="streetAddress">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="city">City:</label>
+        <input type="text" class="form-control" formControlName="city">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="state">State:</label>
+        <input class="form-control" type="text" formControlName="state">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="zipCode">Zip code:</label>
+        <input type="text" class="form-control" formControlName="zipCode">
+      </div>
+      <label>Contacts:</label>
+      <div class="mb-3 form-check" *ngFor="let contact of contactsList; let i=index">
+        <input class="form-check-input" [value]="contact.personId" (change)="onCheckBoxChange($event)" type="checkbox" id="{{i}}">
+        <label class="form-check-label" for="{{i}}">
+          {{contactsList[i].firstName}}  {{contactsList[i].lastName}}
+        </label>
+      </div>
+      <button [disabled]="clientForm.invalid" class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IClient } from '../models/client';
 import { ClientService } from '../services/client.service';
+import { PersonService } from '../services/person.service';
 
 @Component({
   selector: 'app-client-detail',
@@ -15,7 +16,8 @@ export class ClientDetailComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private personService: PersonService
   ) { }
 
   ngOnInit() {
@@ -32,11 +34,17 @@ export class ClientDetailComponent implements OnInit {
   }
 
   deleteClient(): void {
-    console.log("deleting client number " + this.clientId);
+    this.clientService.deleteClient(this.clientId).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/');
+      }
+    })
   }
 
-  removeContact(): void {
-    console.log("removeing contact");
+  removeContact(personId: number): void {
+    this.personService.updateContactsClient(personId, 0);
+    this.client.contacts.filter(x => x.personId !== personId); 
+    
   }
 
 }

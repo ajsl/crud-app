@@ -7,6 +7,6 @@ export interface IPerson {
     city: string;
     state: string;
     zipCode: string;
-    clientId: string;
+    clientId: number;
     clientName: string;
 }

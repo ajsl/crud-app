@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPerson } from '../models/person';
 import { PersonService } from '../services/person.service';
 
@@ -11,7 +11,10 @@ import { PersonService } from '../services/person.service';
 export class ContactDetailComponent implements OnInit {
   contact!: IPerson;
   contactId = 0;
-  constructor(private personService: PersonService, private route: ActivatedRoute) { }
+  constructor(private personService: PersonService, 
+    private route: ActivatedRoute,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.contactId = Number(this.route.snapshot.paramMap.get('id'));
@@ -27,7 +30,12 @@ export class ContactDetailComponent implements OnInit {
   }
 
   deleteContact(id: number){
-    console.log("deleteing contact");
+    this.personService.deleteContact(id).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/contact/list');
+      }
+    })
+    
   }
 
 }

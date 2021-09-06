@@ -5,8 +5,8 @@
         {{client.companyName}}
       </h3>
       <h4>Contact</h4>
-      <p>Phonenumber: {{client.phoneNumber}}</p>
-      <a href="{{client.websiteUri}}">Visit the website</a>
+      <p>Phone number: {{client.phoneNumber}}</p>
+      <p>website: <a href="{{client.websiteUri}}">{{client.companyName}}</a></p>
       <p>Address: </p>
       <p>{{client.streetAddress}}</p>
       <p>{{client.city}}</p>
@@ -15,11 +15,11 @@
       <div *ngIf="client.contacts">
         <h5>Contacts</h5>
         <ul *ngFor="let contact of client.contacts">
-          <li><a [routerLink]="['/contact/', contact.clientId]">{{contact.firstName}} {{contact.lastName}} </a> <button (click)="removeContact()" class="btn btn-danger btn-sm">remove contact</button></li>
+          <li><a [routerLink]="['/contact/', contact.clientId]">{{contact.firstName}} {{contact.lastName}} </a> <button (click)="removeContact(contact.personId)" class="btn btn-danger btn-sm">remove contact</button></li>
 
         </ul>
       </div>
-      <button type="button" class="btn btn-primary">Edit</button>
+      <button [routerLink]="['/edit/client', client.clientId]" type="button" class="btn btn-primary">Edit</button>
       <button type="button" (click)="deleteClient()" class="btn btn-danger">Delete</button>
     </div>
   </div>

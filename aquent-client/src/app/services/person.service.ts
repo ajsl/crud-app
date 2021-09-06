@@ -19,4 +19,31 @@ constructor(private http: HttpClient) { }
   getContact(id: number) {
     return this.http.get<IPerson>(this.baseUrl + 'person/' + id);
   }
+
+  postContact(contact: IPerson) {
+    return this.http.post<number>(this.baseUrl + 'person/create', contact);
+  }
+
+  deleteContact(id: number) {
+    return this.http.delete(this.baseUrl + 'person/' + id);
+  }
+
+  updateContact(contact: IPerson) {
+    let response = this.http.put(this.baseUrl + 'person/', contact).subscribe({
+      next: () => {
+      console.log("update contact");
+      }
+    });
+  }
+
+  updateContactsClient(contactId: number, clientId: number) {
+    let contact: IPerson;
+    this.getContact(contactId).subscribe({
+      next: (data: IPerson) => {
+        contact = data;
+        contact.clientId = clientId;
+        this.updateContact(contact);
+      } 
+    });
+  }
 }
