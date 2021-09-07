@@ -1,14 +1,13 @@
 .card-body {
-    min-height: 160px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    button {
-        height: 50%;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 210px;
+}
+.divider {
+  width: 90%;
 }
 
 .space-evenly {
-    justify-content: space-evenly;
+  justify-content: center;
 }

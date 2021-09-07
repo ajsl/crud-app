@@ -50,9 +50,8 @@ public class PersonController {
             } else {
                 return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
             }
-
         } catch(Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -67,7 +66,7 @@ public class PersonController {
            Person person = personService.readPerson(id);
            return new ResponseEntity<>(person, HttpStatus.CREATED);
        } catch(Exception e){
-           throw e;
+           return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
        }
     }
 
@@ -86,9 +85,8 @@ public class PersonController {
             } else {
                 return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
             }
-
         } catch(Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -103,7 +101,7 @@ public class PersonController {
             personService.deletePerson(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch(Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 

@@ -33,7 +33,7 @@ export class EditClientComponent implements OnInit {
           this.clientForm = new FormGroup({
             companyName: new FormControl(client.companyName, Validators.required),
             websiteUri: new FormControl(client.websiteUri, Validators.required),
-            phoneNumber: new FormControl(client.phoneNumber, [Validators.required, Validators.pattern('[0-9,a-z]{7,15}')]),
+            phoneNumber: new FormControl(client.phoneNumber, [Validators.required, Validators.pattern('[0-9,a-z]{10,15}')]),
             contacts: new FormArray([]),
             address: new FormGroup({
               streetAddress: new FormControl(client.address.streetAddress, Validators.required),
@@ -49,7 +49,7 @@ export class EditClientComponent implements OnInit {
       this.clientForm = this.formBuilder.group({
         companyName: ['', Validators.required],
         websiteUri: ['', Validators.required],
-        phoneNumber: ['', [Validators.required, Validators.pattern('[a-z,0-9]{7,15}')]],
+        phoneNumber: ['', [Validators.required, Validators.pattern('[a-z,0-9]{10,15}')]],
         contacts: new FormArray([]),
         address: this.formBuilder.group({
           streetAddress: ['', Validators.required],

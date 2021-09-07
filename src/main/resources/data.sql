@@ -25,6 +25,15 @@ INSERT INTO person (
     'NC',
     '28801',
     '2'
+), (
+    'Bob',
+    'Ross',
+    'fake3@aquent.com',
+    '125 Any St.',
+    'Asheville',
+    'NC',
+    '28801',
+    '2'
 );
 
 INSERT INTO client (
@@ -51,4 +60,12 @@ INSERT INTO client (
              'Asheville',
              'NC',
              '28801'
-         );
+         ), (
+            'Highland Brewing Company',
+            'https://www.highlandbrewing.com/',
+            '9457634563',
+            '12 Old Charlotte way',
+            'Asheville',
+            'NC',
+            '28801'
+        );

@@ -7,9 +7,11 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { FourOhFourComponent } from './shared/fourOhFour/fourOhFour.component';
+import { ServerErrorComponent } from './shared/server-error/server-error.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/client', pathMatch: 'full' },
+  { path: 'server-error', component: ServerErrorComponent },
   { path: 'client', component: ClientListComponent },
   { path: 'client/:id', component: ClientDetailComponent },
   { path: 'contact', component: ContactListComponent },

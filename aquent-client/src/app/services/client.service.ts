@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { IClient } from '../models/client';
+import { PersonService } from './person.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { IClient } from '../models/client';
 export class ClientService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private personService: PersonService) { }
 
   getClients() {
     let request = this.http.get<IClient[]>(this.baseUrl + 'client/list');
@@ -29,8 +30,16 @@ export class ClientService {
     return this.http.put(this.baseUrl + 'client/', client);
   }
 
-  deleteClient(id: number) {
-    return this.http.delete(this.baseUrl + 'client/' + id);
+  deleteClient(client: IClient) {
+    //check if they client has any contacts.
+    //if they doo delete them.
+    if (client.contacts && client.contacts.length > 0){
+      client.contacts.forEach(contact => {
+        this.personService.updateContactsClient(contact.personId, 0)
+      });
+    }
+
+    return this.http.delete(this.baseUrl + 'client/' + client.clientId);
   }
 
 

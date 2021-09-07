@@ -1,22 +1,17 @@
 # Aquent developer candidate project
 
-You can find the code to use as the basis for this project at https://github.com/aquent/crud-app. Please fork the repo on GitHub and submit a link to your fork.
+The application is a Spring boot REST API with an Angular UI. 
 
-This is a Maven project. It is a simple CRUD web application known to work with Java 8. It uses Spring Boot with Thymeleaf views and Spring JDBC with an embedded database. The established features allow the user to manage a list of people with contact information.
+To run the application fork the Repo. Open the crud-app file in a Suitable IDE such as IntelliJ. 
+Using Maven download the dependencies. Run the API project. In the terminal navigate to the aquent-client folder and 
+run npm install to download the dependencies. Once that has completed run `ng-serve` and navigate to
+http://localhost:4200. There are three default clients to add more click the add client button. There are three default
+contacts to add more follow the contacts link in the nav bar and click add contacts.
 
-Please implement the stories below to the best of your ability. Feel free to add features or technical improvements you feel are important or valuable as you see fit and have time. Be as creative as you want (even if that means using a completely different approach.) Feel free to correct our mistakes as well.
+To view the API end points with swagger go to http://localhost:8081/swagger-ui.html.
 
-## Story #1
+There are a few test on the Angular project. To run the tests run `ng-test` in the terminal.
 
-Add ability to manage clients (companies):
-
-* The user should be able to create, edit, delete and list Clients.
-* Clients should have a company name, website URI, phone number, and physical/mailing address.
-* Clients can have zero, one, or multiple associated contacts.
-* When editing a person, the user should be able to choose the associated client.
-* When viewing a person, the associated client should be shown.
-* When viewing a client, the associated contacts should be shown.
-* When editing a client, the user should be able to add or remove associated contacts.
 
 ## ToDo 
 
@@ -24,9 +19,14 @@ Add ability to manage clients (companies):
 - Unit testing throughout
 - Refactor the form components create a reusable input or address form
 - Error handling and messaging
+- Find ways Improve performance
+- Move logic to the back end and try to reduce aoi calls
 
 ##Back-End
 
 - Unit tests
 - Error handling
-- 
+
+##Bugs
+
+When you

@@ -2,18 +2,19 @@
   <h1 class="display-4 fw-normal">Clients</h1>
   <button [routerLink]="['/edit/client', '']" type="button" class="btn btn-primary">Add Client</button>
 </div>
+<div class="d-flex justify-content-center">
+  <hr class="divider">
+</div>
 
 <div class="container mt-4">
   <div *ngIf="clients" class="row space-evenly">
     <div class="col-md-6 col-lg-4 col-sm-12" *ngFor="let client of clients">
       <div class="card mb-2" style="width: 18rem;">
         <div class="card-body">
-          <div>
             <h5 class="card-title">{{client.companyName}}</h5>
             <p class="card-text">location: {{client.address.city}}</p>
             <p class="card-text">Website: <a href="{{client.websiteUri}}">{{client.companyName}}</a></p>
-          </div>
-          <button [routerLink]="['/client', client.clientId]" class="btn btn-primary">detail</button>
+            <button [routerLink]="['/client', client.clientId]" class="btn btn-primary">detail</button>
         </div>
       </div>
     </div>

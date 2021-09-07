@@ -26,7 +26,8 @@ public class ClientController {
             String data = gson.toJson(clientService.listClients());
             return new ResponseEntity(data, HttpStatus.OK);
         } catch(Exception e) {
-            throw e;
+
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -40,9 +41,8 @@ public class ClientController {
             } else {
                 return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
             }
-
         } catch(Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -53,8 +53,7 @@ public class ClientController {
             String client = gson.toJson(clientService.readClient(id));
             return new ResponseEntity(client, HttpStatus.OK);
         } catch(Exception e){
-
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -68,9 +67,8 @@ public class ClientController {
             } else {
                 return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
             }
-
         } catch(Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 
@@ -80,7 +78,7 @@ public class ClientController {
             clientService.deleteClient(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e){
-            throw e;
+            return new ResponseEntity(e.getMessage(), HttpStatus.valueOf(500));
         }
     }
 

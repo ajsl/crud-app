@@ -58,7 +58,6 @@ public class JdbcClientDao implements ClientDao {
     @Override
     public void deleteClient(Integer clientId) {
         namedParameterJdbcTemplate.update(SQL_DELETE_CLIENT, Collections.singletonMap("clientId", clientId));
-
     }
 
     private static final class ClientRowMapper implements RowMapper<Client> {

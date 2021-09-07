@@ -1,21 +1,31 @@
 <section class="container mt-4">
   <div class="row justify-content-center" *ngIf="contact">
-    <div class="col-auto">
+    <div class="col-auto border border-1 p-3">
       <h3>
         {{contact.firstName}} {{contact.lastName}}
       </h3>
       <div *ngIf="contact.clientName">
         <p class="lead">{{contact.clientName}}</p>
       </div>
-      <p>Email: {{contact.emailAddress}}</p>
+      <p><b>Email: </b> {{contact.emailAddress}}</p>
       <ul class="list-group mb-2">
-        <li class="list-group-item"><p class="fw-bold">Address</p></li>
-        <li class="list-group-item"><p>{{contact.address.streetAddress}}</p></li>
-        <li class="list-group-item"><p>{{contact.address.city}}</p></li>
-        <li class="list-group-item"><p>{{contact.address.state}}, {{contact.address.zipCode}}</p></li>
+        <li class="list-group-item">
+          <p class="fw-bold">Address</p>
+        </li>
+        <li class="list-group-item">
+          <p>{{contact.address.streetAddress}}</p>
+        </li>
+        <li class="list-group-item">
+          <p>{{contact.address.city}}</p>
+        </li>
+        <li class="list-group-item">
+          <p>{{contact.address.state}}, {{contact.address.zipCode}}</p>
+        </li>
       </ul>
-      <button [routerLink]="['/edit/contact', contact.personId]" type="button" class="btn btn-primary">Edit</button>
-      <button type="button" (click)="deleteContact(contact.personId)" class="btn btn-danger">Delete</button>
+      <div class="button-container">
+        <button [routerLink]="['/edit/contact', contact.personId]" type="button" class="btn btn-primary">Edit</button>
+        <button type="button" (click)="deleteContact(contact.personId)" class="btn btn-danger">Delete</button>
+      </div>
     </div>
   </div>
 </section>
