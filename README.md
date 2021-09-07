@@ -1,32 +1,43 @@
 # Aquent developer candidate project
 
-The application is a Spring boot REST API with an Angular UI. 
+A basic application with a Spring boot REST API, an Angular UI and styled with Twitter Bootstrap. 
 
-To run the application fork the Repo. Open the crud-app file in a Suitable IDE such as IntelliJ. 
-Using Maven download the dependencies. Run the API project. In the terminal navigate to the aquent-client folder and 
-run npm install to download the dependencies. Once that has completed run `ng-serve` and navigate to
-http://localhost:4200. There are three default clients to add more click the add client button. There are three default
-contacts to add more follow the contacts link in the nav bar and click add contacts.
+##Running the application locally
 
-To view the API end points with swagger go to http://localhost:8081/swagger-ui.html.
+###Spring boot
+- First fork the Repo. 
+- Open the crud-app in a Suitable IDE such as IntelliJ. 
+- Using Maven download the dependencies. 
+- Run the API project from the application class. 
+- Running the API will populate the database with the initial data.
 
-There are a few test on the Angular project. To run the tests run `ng-test` in the terminal.
+###Angular
+- Navigate to the aquent-client file in a terminal/console.
+- Run `npm install` to install the required packages.
+- To start the application run `ng-serve` and navigate to http://localhost:4200.
+- Running Angular tests - To run unit tests use `ng-test` in the terminal.
 
+###Swagger
+To view the swagger endpoints navigate to http://localhost:8081/swagger-ui.html. in the browser.
 
-## ToDo 
+##Overview
+The Application allows you to view, create, update and delete clients and contacts. Clients can have multiple 
+contacts associated with them, contacts are linked to either one or no clients.
 
-##UI
-- Unit testing throughout
-- Refactor the form components create a reusable input or address form
-- Error handling and messaging
-- Find ways Improve performance
-- Move logic to the back end and try to reduce aoi calls
+## ToDo
 
-##Back-End
+###UI
+- More unit testing.
+- Refactor the form components and create a reusable input or address form.
+- Find ways to improve performance.
+- Move logic to the backend and try to reduce API calls.
+
+###Back-End
 
 - Unit tests
 - Error handling
 
-##Bugs
+###Bugs
+After updating a client, the redirect to the detail page takes place before the changes to the contacts
+have been saved to the database and not displaying on the detail page without a refresh.
 
-When you
