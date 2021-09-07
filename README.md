@@ -18,7 +18,7 @@ A basic application with a Spring boot REST API, an Angular UI and styled with T
 - Running Angular tests - To run unit tests use `ng-test` in the terminal.
 
 ### Swagger
-To view the swagger endpoints in the browser navigate to http://localhost:8081/swagger-ui.html. in the browser.
+To view the swagger endpoints in the browser navigate to http://localhost:8081/swagger-ui.html.
 
 ## Overview
 The Application allows you to view, create, update and delete clients and contacts. Clients can have multiple 
