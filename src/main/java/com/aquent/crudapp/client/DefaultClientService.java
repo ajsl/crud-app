@@ -11,6 +11,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Default implementation of {@link ClientService}.
+ */
 @Component
 public class DefaultClientService implements ClientService {
 

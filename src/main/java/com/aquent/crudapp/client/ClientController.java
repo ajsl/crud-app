@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for handling basic client management operations.
+ */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("client")
@@ -19,6 +22,11 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    /**
+     * Returns List of Clients.
+     *
+     * @return list of all clients
+     */
     @GetMapping(value = "list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Client>> getClients() {
         Gson gson = new Gson();
@@ -31,6 +39,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Creates a new Client record
+     *
+     * @return Id of the new client
+     */
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createClient(@RequestBody Client client){
         try{
@@ -46,6 +59,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Gets a single client record
+     *
+     * @return Client object
+     */
     @GetMapping(value = "{id}")
     public ResponseEntity<Client> getClient(@PathVariable Integer id) {
         Gson gson = new Gson();
@@ -57,6 +75,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Updates a single client record
+     *
+     * @return HttpStatus NoContent
+     */
     @PutMapping()
     public ResponseEntity updateClient(@RequestBody Client client){
         try{
@@ -72,6 +95,11 @@ public class ClientController {
         }
     }
 
+    /**
+     * Deletes a single client record
+     *
+     * @return HttpStatus NoContent
+     */
     @DeleteMapping(value = "{id}")
     public ResponseEntity deleteClient(@PathVariable Integer id){
         try{

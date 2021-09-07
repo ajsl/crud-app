@@ -19,6 +19,4 @@ public interface ClientDao {
 
     void deleteClient(Integer clientId);
 
-//    Person[] getContacts(Integer clientId);
-
 }

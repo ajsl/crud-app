@@ -45,27 +45,27 @@ INSERT INTO client (
     state,
     zip_code
 ) VALUES (
-             'Burial',
-             'https://burialbeer.com/',
-             '9457634563',
-             '40 Collier Ave',
-             'Asheville',
-             'NC',
-             '28801'
-         ), (
-             'Green Man Brewery',
-             'https://www.greenmanbrewery.com/',
-             '9457634563',
-             '27 Buxton Ave',
-             'Asheville',
-             'NC',
-             '28801'
-         ), (
-            'Highland Brewing Company',
-            'https://www.highlandbrewing.com/',
-            '9457634563',
-            '12 Old Charlotte way',
-            'Asheville',
-            'NC',
-            '28801'
-        );
+     'Burial',
+     'https://burialbeer.com/',
+     '9457634563',
+     '40 Collier Ave',
+     'Asheville',
+     'NC',
+     '28801'
+    ), (
+     'Green Man Brewery',
+     'https://www.greenmanbrewery.com/',
+     '9457634563',
+     '27 Buxton Ave',
+     'Asheville',
+     'NC',
+     '28801'
+    ), (
+    'Highland Brewing Company',
+    'https://www.highlandbrewing.com/',
+    '9457634563',
+    '12 Old Charlotte way',
+    'Asheville',
+    'NC',
+    '28801'
+    );

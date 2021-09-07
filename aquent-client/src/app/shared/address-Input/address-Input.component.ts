@@ -2,9 +2,9 @@ import { Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-addressInput',
-  templateUrl: './addressInput.component.html',
-  styleUrls: ['./addressInput.component.scss']
+  selector: 'app-address-Input',
+  templateUrl: './address-Input.component.html',
+  styleUrls: ['./address-Input.component.scss']
 })
 
 //Work in progress - Trying to find a way to make reusable inputs to simplify the forms

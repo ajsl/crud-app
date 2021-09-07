@@ -1,7 +1,5 @@
 package com.aquent.crudapp.client;
 
-import com.aquent.crudapp.person.JdbcPersonDao;
-import com.aquent.crudapp.person.Person;
 import com.aquent.crudapp.shared.Address;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -76,6 +74,5 @@ public class JdbcClientDao implements ClientDao {
             client.setPhoneNumber(rs.getString("phone_number"));
             return client;
         }
-
     }
 }

@@ -13,7 +13,7 @@ import { EditClientComponent } from './edit-client/edit-client.component';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FourOhFourComponent } from './shared/fourOhFour/fourOhFour.component';
-import { AddressInputComponent } from './shared/addressInput/addressInput.component';
+import { AddressInputComponent } from './shared/address-Input/address-Input.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { ServerErrorComponent } from './shared/server-error/server-error.component';
 import { ErrorInterceptor } from './shared/error.interceptor';
